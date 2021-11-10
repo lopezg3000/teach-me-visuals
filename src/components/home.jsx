@@ -1,9 +1,10 @@
 import React from 'react';
+import Shop from './shop';
 
 export default function Home() {
     return (
         <div>
-            <h1>Home</h1>
+            <Shop />
         </div>
     )
 }
