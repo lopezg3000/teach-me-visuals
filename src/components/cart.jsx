@@ -4,6 +4,7 @@ import { selectCart } from '../redux/features/cart/cartSlice';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { Row, Col } from 'react-bootstrap';
+import TotalPrice from './common/totalPrice';
 
 export default function Cart() {
     const cart = useSelector(selectCart);
@@ -29,6 +30,7 @@ export default function Cart() {
                     </Card>
                 </div>
             ))}
+            <TotalPrice />
         </div>
     )
 }
