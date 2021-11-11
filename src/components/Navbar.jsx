@@ -13,12 +13,12 @@ const links = [
     { path: '/login', label: 'Login' }
 ];
 
-export default function navbar() {
+export default function Navbar() {
     return (
         <div>
             <Nav>
                 {links.map(link => (
-                    <Nav.Item>
+                    <Nav.Item key={link.label}>
                         <Nav.Link as={NavLink} to={link.path}>{link.label}</Nav.Link>
                     </Nav.Item>
                 ))}
