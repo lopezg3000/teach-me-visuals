@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectAllProducts, fetchProducts } from '../redux/features/products/productsSlice';
+import { addToCart } from '../redux/features/cart/cartSlice';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-
+import { Row, Col } from 'react-bootstrap';
 
 export default function Shop() {
     const dispatch = useDispatch();
@@ -20,16 +21,21 @@ export default function Shop() {
         <div>
             {products.slice(0, 5).map(product => (
                 <div key={product.id}>
-                    <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src="holder.js/100px180" />
-                        <Card.Body>
-                            <Card.Title>{product.title}</Card.Title>
-                            <Card.Text>
-                                Some quick example text to build on the card title and make up the bulk of
-                                the card's content.
-                            </Card.Text>
-                            <Button variant="primary">Go somewhere</Button>
-                        </Card.Body>
+                    <Card style={{ width: '35rem' }}>
+                        <Row>
+                            <Col >
+                                <Card.Img style={{ width: '10rem' }} variant="top" src={product.image} />
+                            </Col>
+                            <Col>
+                                <Card.Body>
+                                    <Card.Title>{product.title}</Card.Title>
+                                    <Card.Text style={{ height: '3.3rem', overflowX: 'hidden' }}>{product.description}</Card.Text>
+                                    <Card.Text>{`$ ${product.price}`}</Card.Text>
+                                    <Button variant="success" onClick={() => dispatch(addToCart(product))}>Add to Cart</Button>
+                                </Card.Body>
+                            </Col>
+
+                        </Row>
                     </Card>
                 </div>
             ))}
