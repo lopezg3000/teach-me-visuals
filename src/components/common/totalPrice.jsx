@@ -7,22 +7,20 @@ export default function TotalPrice() {
     const [totalPrice, setTotalPrice] = useState(0)
 
     useEffect(() => {
-        const price = cart.map(cart => {
-            let price = 0;
-            price = + cart.price;
-            return price;
+        const getPrice = cart.map(cart => {
+            return cart.price;
         });
 
         const reducer = (previousValue, currentValue) => previousValue + currentValue;
 
-        const reducedPrice = price === 0 ? 0 : price.reduce(reducer);
+        const reducedPrice = cart.length === 0 ? 0 : getPrice.reduce(reducer);
 
         setTotalPrice(reducedPrice);
     }, [cart]);
 
     return (
         <div>
-            <h3>Total Price: {totalPrice}</h3>
+            {totalPrice === 0 ? <h3>Cart Empty</h3> : <h3>Total Price: {totalPrice}</h3>}
         </div>
     )
 }
