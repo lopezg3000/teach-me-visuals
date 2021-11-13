@@ -14,6 +14,7 @@ export default function Cart() {
 
     return (
         <div>
+            <TotalPrice />
             {cart.map(product => (
                 <div key={product.id}>
                     <Card style={{ width: '35rem' }}>
@@ -33,7 +34,6 @@ export default function Cart() {
                     </Card>
                 </div>
             ))}
-            <TotalPrice />
         </div>
     )
 }

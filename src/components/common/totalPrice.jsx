@@ -8,12 +8,8 @@ export default function TotalPrice() {
 
     useEffect(() => {
         const getPrice = cart.map(cart => {
-            let price = 0;
-            price = + cart.price;
-            // console.log(price);
-            return price;
+            return cart.price;
         });
-        console.log(getPrice);
 
         const reducer = (previousValue, currentValue) => previousValue + currentValue;
 
@@ -24,7 +20,7 @@ export default function TotalPrice() {
 
     return (
         <div>
-            <h3>Total Price: {totalPrice === 0 ? 'Empty Cart' : totalPrice}</h3>
+            {totalPrice === 0 ? <h3>Cart Empty</h3> : <h3>Total Price: {totalPrice}</h3>}
         </div>
     )
 }

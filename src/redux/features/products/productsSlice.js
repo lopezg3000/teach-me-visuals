@@ -2,14 +2,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
 
 const initialState = {
-    products: [],
+    data: [],
     status: 'idle',
     error: null
 };
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
     const response = await axios('https://fakestoreapi.com/products');
-    console.log('hello');
+    // console.log('hello');
     return response.data;
 })
 
@@ -26,7 +26,7 @@ export const productsSlice = createSlice({
             .addCase(fetchProducts.fulfilled, (state, action) => {
                 state.status = 'succeeded'
                 // Add any fetched Products to the array
-                state.products = state.products.concat(action.payload)
+                state.data = state.data.concat(action.payload)
             })
             .addCase(fetchProducts.rejected, (state, action) => {
                 state.status = 'failed'
@@ -36,6 +36,6 @@ export const productsSlice = createSlice({
 })
 
 
-export const selectAllProducts = (state) => state.products.products;
+export const selectAllProducts = (state) => state.products.data;
 
 export default productsSlice.reducer;
