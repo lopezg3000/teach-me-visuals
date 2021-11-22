@@ -6,11 +6,23 @@ import Cart from './components/cart';
 import About from './components/about';
 import Login from './components/login';
 import Register from './components/register';
+import { useState, useEffect } from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
 
 function App() {
+  const [data, setData] = useState(null);
 
+  useEffect(() => {
+    fetch("http://localhost:8080/api")
+      .then((res) => res.json())
+      .then((data) =>
+        setData(data.message)
+      );
+  }, []);
 
+  console.log(data);
   return (
     <div className="App">
       <Navbar />
@@ -23,6 +35,12 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<Navigate to='/home' />} />
       </Routes>
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>{!data ? "Loading..." : data}</p>
+        </header>
+      </div>
     </div>
   );
 }
