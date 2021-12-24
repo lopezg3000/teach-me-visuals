@@ -7,7 +7,6 @@ import About from './components/about';
 import Login from './components/login';
 import Register from './components/register';
 import { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 
@@ -15,7 +14,7 @@ function App() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api")
+    fetch("https://teach-me-visuals-backend.herokuapp.com/api")
       .then((res) => res.json())
       .then((data) =>
         setData(data.message)
@@ -35,12 +34,6 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<Navigate to='/home' />} />
       </Routes>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>{!data ? "Loading..." : data}</p>
-        </header>
-      </div>
     </div>
   );
 }
