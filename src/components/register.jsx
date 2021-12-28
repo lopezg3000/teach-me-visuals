@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 
 
 export default function Register() {
-    return (
+    const [user, setUser] = useState({});
 
+    const handleChange = ({ currentTarget: target }) => {
+        const userClone = { ...user };
+        userClone[target.name] = target.value;
+        setUser(userClone);
+    }
+    console.log('This is the user state: ', user);
+    return (
         <Form>
             <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridFirstName">
                     <Form.Label>First name</Form.Label>
                     <Form.Control
+                        name='firstName'
+                        onChange={handleChange}
                         type="text"
                         placeholder="John"
                     />
@@ -19,6 +28,8 @@ export default function Register() {
                 <Form.Group as={Col} controlId="formGridLastName">
                     <Form.Label>Last name</Form.Label>
                     <Form.Control
+                        name='lastName'
+                        onChange={handleChange}
                         type="text"
                         placeholder="Doe"
                     />
@@ -27,35 +38,56 @@ export default function Register() {
             <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridEmail">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
+                    <Form.Control
+                        name='email'
+                        onChange={handleChange}
+                        type="email"
+                        placeholder="Enter email"
+                    />
                 </Form.Group>
             </Row>
             <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
+                    <Form.Control
+                        name='password'
+                        onChange={handleChange}
+                        type="password"
+                        placeholder="Password"
+                    />
                 </Form.Group>
 
+                {/* //may need to find out how to do this
                 <Form.Group as={Col} controlId="formGridPasswordConfirmation">
                     <Form.Label>Confirm password</Form.Label>
                     <Form.Control type="password" />
-                </Form.Group>
+                </Form.Group> 
+                */}
             </Row>
 
             <Form.Group className="mb-3" controlId="formGridAddress1">
                 <Form.Label>Address</Form.Label>
-                <Form.Control placeholder="1234 Main St" />
+                <Form.Control
+                    name='address'
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="1234 Main St"
+                />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formGridAddress2">
+            {/* <Form.Group className="mb-3" controlId="formGridAddress2">
                 <Form.Label>Address 2</Form.Label>
                 <Form.Control placeholder="Apartment, studio, or floor" />
-            </Form.Group>
+            </Form.Group> */}
 
             <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridCity">
                     <Form.Label>City</Form.Label>
-                    <Form.Control />
+                    <Form.Control
+                        name='city'
+                        onChange={handleChange}
+                        type="text"
+                    />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridState">
@@ -68,7 +100,11 @@ export default function Register() {
 
                 <Form.Group as={Col} controlId="formGridZip">
                     <Form.Label>Zip</Form.Label>
-                    <Form.Control />
+                    <Form.Control
+                        name='zip'
+                        onChange={handleChange}
+                        type="number"
+                    />
                 </Form.Group>
             </Row>
 
