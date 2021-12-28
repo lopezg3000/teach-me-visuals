@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 
 export default function Register() {
     const [user, setUser] = useState({});
+    const [option, setOption] = useState('')
 
     const handleChange = ({ currentTarget: target }) => {
         const userClone = { ...user };
@@ -39,7 +40,7 @@ export default function Register() {
                 <Form.Group as={Col} controlId="formGridEmail">
                     <Form.Label>Email</Form.Label>
                     <Form.Control
-                        name='email'
+                        name='username'
                         onChange={handleChange}
                         type="email"
                         placeholder="Enter email"
