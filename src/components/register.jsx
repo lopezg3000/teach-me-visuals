@@ -2,17 +2,24 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import { states } from '../data/states';
 
 
 export default function Register() {
     const [user, setUser] = useState({});
-    const [option, setOption] = useState('')
+    const [option, setOption] = useState('');
 
     const handleChange = ({ currentTarget: target }) => {
         const userClone = { ...user };
         userClone[target.name] = target.value;
         setUser(userClone);
-    }
+    };
+
+    const handleSelect = (e) => {
+        setOption(e.currentTarget.value);
+        handleChange(e);
+    };
+
     console.log('This is the user state: ', user);
     return (
         <Form>
@@ -93,7 +100,12 @@ export default function Register() {
 
                 <Form.Group as={Col} controlId="formGridState">
                     <Form.Label>State</Form.Label>
-                    <Form.Select defaultValue="Choose...">
+                    <Form.Select name='state' defaultValue={option} onChange={handleSelect}>
+                        {states.map(state => (
+                            <option key={state.name} value={state.name}>
+                                {state.abbreviation}
+                            </option>
+                        ))}
                         <option>Choose...</option>
                         <option>...</option>
                     </Form.Select>
