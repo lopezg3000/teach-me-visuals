@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { NavLink } from 'react-router-dom';
 
-export default function Cart() {
+export default function Login() {
     return (
         <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
