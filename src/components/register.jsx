@@ -3,11 +3,24 @@ import Form from 'react-bootstrap/Form';
 import { Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { states } from '../data/states';
+import Joi from 'joi';
 
 
 export default function Register() {
     const [user, setUser] = useState({});
     const [option, setOption] = useState('');
+    const [errors, setErrors] = useState({});
+
+    const schema = {
+        firstName: Joi.string().min(1).max(20).required(),
+        lastName: Joi.string().min(1).max(20).required(),
+        username: Joi.string().email().required(),
+        password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
+        address: Joi.string().required(),
+        city: Joi.string().required(),
+        state: Joi.string().required(),
+        zipCode: Joi.string().required()
+    }
 
     const handleChange = ({ currentTarget: target }) => {
         const userClone = { ...user };
@@ -114,7 +127,7 @@ export default function Register() {
                 <Form.Group as={Col} controlId="formGridZip">
                     <Form.Label>Zip</Form.Label>
                     <Form.Control
-                        name='zip'
+                        name='zipCode'
                         onChange={handleChange}
                         type="number"
                     />
