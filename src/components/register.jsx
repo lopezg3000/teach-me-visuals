@@ -13,7 +13,7 @@ export default function Register() {
 
 
     const strongPasswordRegex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
-    // const stringPassswordError = new Error("Password must be strong. At least one upper case alphabet. At least one lower case alphabet. At least one digit. At least one special character. Minimum eight in length")
+    // Password must be strong. At least one upper case alphabet. At least one lower case alphabet. At least one digit. At least one special character. Minimum eight in length"
 
     const schema = {
         firstName: Joi.string().min(1).max(20).required(),
@@ -54,10 +54,32 @@ export default function Register() {
         handleChange(e);
     };
 
+    //Validates form when handleSubmit is called
+    const validate = () => {
+        const options = { abortEarly: false };
+        const schemaJoiObj = Joi.object(schema);
+        const { error } = schemaJoiObj.validate(user, options);
+        if (!error) return null;
+
+        const errors = {};
+        for (let item of error.details) errors[item.path[0]] = item.message;
+        return errors;
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        const errors = validate();
+        setErrors(errors || {});
+        if (errors) return;
+
+        console.log('This is an error', errors);
+    }
+
     // console.log('This is the user state: ', user);
     // console.log(errors);
     return (
-        <Form>
+        <Form onSubmit={handleSubmit}>
             <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridFirstName">
                     <Form.Label>First name</Form.Label>
