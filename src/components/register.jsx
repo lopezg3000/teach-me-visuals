@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import Input from './common/input';
+import Select from './common/select';
 import Form from 'react-bootstrap/Form';
-import { Col, Row } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { states } from '../data/states';
 import Joi from 'joi';
@@ -73,142 +75,87 @@ export default function Register() {
         setErrors(errors || {});
         if (errors) return;
 
-        console.log('This is an error', errors);
+        // doSubmit();
     }
 
     // console.log('This is the user state: ', user);
     // console.log(errors);
+    // console.log(option);
     return (
         <Form onSubmit={handleSubmit}>
             <Row className="mb-3">
-                <Form.Group as={Col} controlId="formGridFirstName">
-                    <Form.Label>First name</Form.Label>
-                    <Form.Control
-                        name='firstName'
-                        onChange={handleChange}
-                        type="text"
-                        placeholder="John"
-                    />
-                </Form.Group>
-                {errors.firstName && (
-                    <div className="alert alert-danger">
-                        {errors.firstName}
-                    </div>
-                )}
-                <Form.Group as={Col} controlId="formGridLastName">
-                    <Form.Label>Last name</Form.Label>
-                    <Form.Control
-                        name='lastName'
-                        onChange={handleChange}
-                        type="text"
-                        placeholder="Doe"
-                    />
-                </Form.Group>
-                {errors.lastName && (
-                    <div className="alert alert-danger">
-                        {errors.lastName}
-                    </div>
-                )}
+                <Input
+                    name="firstName"
+                    label="First Name"
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="John"
+                    error={errors.firstName}
+                />
+                <Input
+                    name='lastName'
+                    label="Last Name"
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="Doe"
+                    error={errors.lastName}
+                />
             </Row>
             <Row className="mb-3">
-                <Form.Group as={Col} controlId="formGridEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                        name='username'
-                        onChange={handleChange}
-                        type="email"
-                        placeholder="Enter email"
-                    />
-                </Form.Group>
-                {errors.username && (
-                    <div className="alert alert-danger">
-                        {errors.username}
-                    </div>
-                )}
+                <Input
+                    name='username'
+                    label="Email"
+                    onChange={handleChange}
+                    type="email"
+                    placeholder="Enter email"
+                    error={errors.username}
+                />
             </Row>
             <Row className="mb-3">
-                <Form.Group as={Col} controlId="formGridPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                        name='password'
-                        onChange={handleChange}
-                        type="password"
-                        placeholder="Password"
-                    />
-                </Form.Group>
-                {errors.password && (
-                    <div className="alert alert-danger">
-                        {errors.password}
-                    </div>
-                )}
+                <Input
+                    name='password'
+                    label='Password'
+                    onChange={handleChange}
+                    type="password"
+                    placeholder="Password"
+                    error={errors.password}
+                />
             </Row>
-
-            <Form.Group className="mb-3" controlId="formGridAddress1">
-                <Form.Label>Address</Form.Label>
-                <Form.Control
+            <Row className="mb-3">
+                <Input
                     name='address'
+                    label="Address"
                     onChange={handleChange}
                     type="text"
                     placeholder="1234 Main St"
+                    error={errors.address}
                 />
-            </Form.Group>
-            {errors.address && (
-                <div className="alert alert-danger">
-                    {errors.address}
-                </div>
-            )}
-
-            <Row className="mb-3">
-                <Form.Group as={Col} controlId="formGridCity">
-                    <Form.Label>City</Form.Label>
-                    <Form.Control
-                        name='city'
-                        onChange={handleChange}
-                        type="text"
-                    />
-                </Form.Group>
-                {errors.city && (
-                    <div className="alert alert-danger">
-                        {errors.city}
-                    </div>
-                )}
-
-                <Form.Group as={Col} controlId="formGridState">
-                    <Form.Label>State</Form.Label>
-                    <Form.Select name='state' defaultValue={option} onChange={handleSelect}>
-                        <option value=''>Choose...</option>
-                        {states.map(state => (
-                            <option key={state.name} value={state.name}>
-                                {state.abbreviation}
-                            </option>
-                        ))}
-                    </Form.Select>
-                </Form.Group>
-                {errors.state && (
-                    <div className="alert alert-danger">
-                        {errors.state}
-                    </div>
-                )}
-
-                <Form.Group as={Col} controlId="formGridZip">
-                    <Form.Label>Zip</Form.Label>
-                    <Form.Control
-                        name='zipCode'
-                        onChange={handleChange}
-                        type="text"
-                    />
-                </Form.Group>
-                {errors.zipCode && (
-                    <div className="alert alert-danger">
-                        {errors.zipCode}
-                    </div>
-                )}
             </Row>
-
-            {/* <Form.Group className="mb-3" id="formGridCheckbox">
-                <Form.Check type="checkbox" label="Agree to terms and conditions" />
-            </Form.Group> */}
-
+            <Row className="mb-3">
+                <Input
+                    name='city'
+                    label='City'
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="Houston"
+                    error={errors.city}
+                />
+                <Select
+                    name="state"
+                    label="State"
+                    value={option}
+                    options={states}
+                    onChange={handleSelect}
+                    error={errors.state}
+                />
+                <Input
+                    name='zipCode'
+                    label='Zip Code'
+                    onChange={handleChange}
+                    type="text"
+                    error={errors.zipCode}
+                />
+            </Row>
             <Button variant="primary" type="submit">
                 Submit
             </Button>
